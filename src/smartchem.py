@@ -124,3 +124,26 @@ def search_chemical(page, chemical):
         except Exception as e_eval:
             print("[error] both click and JS submit failed:", e_click, e_eval)
             return False
+
+def click_first_result(page):
+    """
+    Clicks the first chemical name link in the results table.
+    This link always has href starting with 'javascript:getDetailsForChemical'
+    """
+    selector = 'a[href^="javascript:getDetailsForChemical"]'
+
+    try:
+        print("[debug] waiting for first result link...")
+        page.wait_for_selector(selector, timeout=6000)
+    except Exception as e:
+        print("[error] result link not found:", e)
+        return False
+
+    try:
+        print("[debug] clicking first result link")
+        page.click(selector)
+        page.wait_for_timeout(2000)
+        return True
+    except Exception as e:
+        print("[error] could not click result link:", e)
+        return False

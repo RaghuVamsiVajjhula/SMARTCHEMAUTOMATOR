@@ -1,40 +1,40 @@
-# src/automate.py
-from smartchem import start_browser, login, search_chemical
+from smartchem import start_browser, login, search_chemical, click_first_result
 import traceback
 
 def main():
     p, browser, context, page = start_browser(headless=False)
 
     try:
-        ok = login(page, pause_after=False)
+        ok = login(page)
         if not ok:
-            print("Login failed. Exiting.")
+            print("Login failed")
             return
 
-        # HARD-CODED chemical name (change as needed)
-        chemical_to_search = "Tributylamine"
+        chemical = "Tributylamine"   # hard-coded
 
-        print(f"[info] searching for: {chemical_to_search}")
-        ok2 = search_chemical(page, chemical_to_search)
-        if ok2:
-            print("[info] search submitted (no pause).")
+        print(f"[info] Searching: {chemical}")
+        ok2 = search_chemical(page, chemical)
+        if not ok2:
+            print("Search failed")
+            return
+
+        print("[info] Clicking the first result link...")
+        ok3 = click_first_result(page)
+        if ok3:
+            print("[info] Result opened successfully!")
         else:
-            print("[error] search failed.")
+            print("[error] Could not open the result!")
 
-        # allow a moment for results to render before we close
-        page.wait_for_timeout(2500)
+        page.wait_for_timeout(3000)
 
     except Exception:
-        print("Exception during automation:")
         traceback.print_exc()
-
     finally:
         try:
             browser.close()
             p.stop()
         except:
             pass
-    print("Script finished.")
 
 if __name__ == "__main__":
     main()
