@@ -20,7 +20,7 @@ def main():
         print("[info] Logged in successfully.")
 
         
-        chemical = "2-Amino Anisole"                #Enter chemical name here and it will download
+        chemical = "19794-93-5"                #Enter chemical name here and it will download
                                                     # an excel sheet with list of appliactions.
 
 

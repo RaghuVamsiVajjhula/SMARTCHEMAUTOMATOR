@@ -4,9 +4,8 @@ from pathlib import Path
 import re
 from smartchem import start_browser, login, search_chemical, click_first_result
 
-CHEMICALS = [                              #Enter list of chemicals for which you want manudacturer list in india.
-"Tulathromycin B",
-"Tulathromycin A",
+CHEMICALS = [                  #Enter list of chemicals for which you want manudacturer list in india.
+"Trazodone hydrochloride",
 ]
 
 
